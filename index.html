@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173b35">
+<meta name="description" content="وقتي يساعدك على تنظيم مهامك وعاداتك ووقت تركيزك.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>وقتي | نظّم يومك</title>
+<style>
+:root{--bg:#f4f7f4;--card:#fff;--ink:#172c28;--muted:#667a74;--green:#176b55;--mint:#e2f3eb;--line:#e1e9e4;--orange:#fff0d9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:13px;padding:11px 14px;background:var(--green);color:white;font-weight:700}.app{max-width:760px;margin:auto;padding:18px 14px 40px}.hero{background:linear-gradient(135deg,#173b35,#22785d);color:white;border-radius:24px;padding:23px 20px;margin-bottom:16px}.hero .top{display:flex;justify-content:space-between;align-items:center}.logo{font-size:27px;font-weight:850}.tag{font-size:13px;color:#d8eee5}.date{margin-top:18px;color:#d8eee5;font-size:14px}.hero h1{font-size:25px;margin:7px 0}.hero p{margin:0;color:#e0f1e9;font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.stat strong{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted)}.tabs{display:flex;gap:8px;overflow:auto;margin:14px 0}.tabs button{white-space:nowrap;background:#e7eee9;color:var(--ink)}.tabs button.active{background:var(--green);color:white}.card{margin:12px 0}.card h2{font-size:18px;margin:0 0 12px}.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}.row input,.row select,input,select{border:1px solid #d5e1da;background:#fff;border-radius:12px;padding:11px;color:var(--ink);width:100%;min-width:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.formgrid .wide{grid-column:1/-1}.task{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.task input[type=checkbox]{width:19px;height:19px;accent-color:var(--green)}.task .details{flex:1}.task .name{font-weight:700}.task small{color:var(--muted)}.done .name{text-decoration:line-through;color:var(--muted)}.pill{font-size:11px;background:var(--mint);color:var(--green);padding:5px 8px;border-radius:20px}.delete{background:#f8e9e7;color:#9e3930;padding:7px 9px}.muted{color:var(--muted);font-size:13px}.empty{text-align:center;padding:20px;color:var(--muted)}.habit{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.habit:last-child{border:0}.habit label{flex:1}.habit input{width:19px;height:19px;accent-color:var(--green)}.timer{font-size:35px;font-weight:850;text-align:center;margin:8px}.center{text-align:center}.secondary{background:#e7eee9;color:var(--ink)}.notice{padding:11px;border-radius:12px;background:var(--orange);font-size:13px;margin-top:10px}.hidden{display:none!important}.foot{text-align:center;font-size:12px;color:var(--muted);padding:20px 0}
+@media(max-width:420px){.formgrid{grid-template-columns:1fr}.formgrid .wide{grid-column:auto}.stats{gap:7px}.stat{padding:12px 9px}.stat strong{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+ <div class="top"><div><div class="logo">◷ وقتي</div><div class="tag">وقتك أغلى من إنك تضيّعه</div></div><div style="font-size:34px">🌿</div></div>
+ <div class="date" id="today"></div><h1>خلّي يومك على مزاجك ✨</h1><p>خطّط ببساطة، أنجز خطوة خطوة، وسيب مساحة للراحة.</p>
+</header>
+<section class="stats">
+ <div class="stat"><strong id="doneCount">0</strong><span>مهام منجزة</span></div>
+ <div class="stat"><strong id="taskCount">0</strong><span>مهام اليوم</span></div>
+ <div class="stat"><strong id="wasteTotal">0 د</strong><span>وقت ضائع مسجّل</span></div>
+</section>
+<nav class="tabs">
+ <button class="active" data-tab="day">📅 يومي</button><button data-tab="habits">🌱 عاداتي</button><button data-tab="focus">⏱️ وقتي وتركيزي</button><button data-tab="coach">💡 اقتراح جدول</button>
+</nav>
+<section id="day" class="panel">
+ <div class="card"><h2>➕ أضف مهمة أو موعد</h2>
+  <form id="taskForm" class="formgrid">
+   <input id="taskName" class="wide" placeholder="مثلاً: مذاكرة الرياضيات" required maxlength="90">
+   <select id="taskType"><option>شخصي</option><option>مذاكرة</option><option>شغل</option><option>موعد</option><option>راحة</option></select>
+   <input id="taskTime" type="time" aria-label="الوقت">
+   <input id="taskDuration" type="number" min="5" max="720" step="5" value="30" placeholder="المدة بالدقائق">
+   <button class="wide" type="submit">إضافة إلى يومي</button>
+  </form>
+  <div class="notice">التذكيرات داخل هذه النسخة تجريبية: أضف الوقت لمهمتك، واستخدم تنبيه الهاتف لضبط التذكير. إشعارات تلقائية موثوقة تحتاج نسخة تطبيق فعلية.</div>
+ </div>
+ <div class="card"><h2>قائمة اليوم</h2><div id="tasks"><div class="empty">لسه مفيش مهام — ابدأ بإضافة أول مهمة 👆</div></div></div>
+</section>
+<section id="habits" class="panel hidden">
+ <div class="card"><h2>🌱 عاداتك اليومية</h2><p class="muted">علّم على العادة لما تخلصها. التقدم بيتحفظ على نفس الجهاز.</p>
+ <form id="habitForm" class="row"><input id="habitName" placeholder="عادة جديدة، مثلاً: قراءة 10 دقائق" required maxlength="70"><button>إضافة</button></form>
+ <div id="habitsList"></div></div>
+</section>
+<section id="focus" class="panel hidden">
+ <div class="card"><h2>⏱️ سجّل وقت التركيز</h2><p class="muted">شغّل المؤقت وقت المذاكرة أو الشغل، وأوقفه عند الانتهاء.</p>
+ <div class="timer" id="focusTimer">00:00:00</div><div class="center row" style="justify-content:center"><button id="startFocus">ابدأ التركيز</button><button id="stopFocus" class="secondary">إنهاء الجلسة</button></div><p id="focusStatus" class="muted center">جاهز؟ خُد نفس وابدأ.</p></div>
+ <div class="card"><h2>📵 حساب الوقت الضائع</h2><p class="muted">لو ضاع وقت في التصفح أو التسويف، سجّله من غير لوم — الهدف نفهم وقتنا.</p><div class="row"><input id="wasteMinutes" type="number" min="1" max="1440" placeholder="عدد الدقائق"><button id="addWaste">تسجيل</button></div><p class="muted">إجمالي الوقت المسجّل: <strong id="wasteLabel">0 دقيقة</strong></p><button id="resetWaste" class="secondary">تصفير الإجمالي</button></div>
+</section>
+<section id="coach" class="panel hidden">
+ <div class="card"><h2>💡 اقترح لي جدولًا</h2><p class="muted">جاوب عن الأسئلة، و«وقتي» هيقسّم مهامك الموجودة إلى خطة مبدئية تقدر تعدّلها.</p>
+ <div class="formgrid"><label>وقت بداية يومك<input id="startDay" type="time" value="09:00"></label><label>وقت النهاية<input id="endDay" type="time" value="21:00"></label><label>مدة التركيز (دقيقة)<select id="blockSize"><option value="25">25 دقيقة</option><option value="40" selected>40 دقيقة</option><option value="50">50 دقيقة</option><option value="60">60 دقيقة</option></select></label><label>الراحة بين المهام<select id="breakSize"><option value="5">5 دقائق</option><option value="10" selected>10 دقائق</option><option value="15">15 دقيقة</option></select></label></div>
+ <button id="makePlan" style="width:100%;margin-top:10px">أنشئ اقتراح الجدول</button><div id="planResult"></div><p class="muted">ده اقتراح آلي بسيط داخل الجهاز، مش مساعد ذكاء اصطناعي متصل بالإنترنت لسه.</p></div>
+</section>
+<div class="foot">وقتي — نسخة أولية تجريبية • بياناتك محفوظة محليًا على هذا الجهاز</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const load=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}};
+const save=()=>{localStorage.setItem('waqti_tasks',JSON.stringify(tasks));localStorage.setItem('waqti_habits',JSON.stringify(habits));localStorage.setItem('waqti_waste',String(waste));localStorage.setItem('waqti_habitChecks',JSON.stringify(habitChecks));};
+let tasks=load('waqti_tasks',[]),habits=load('waqti_habits',['شرب الماء','قراءة أو تعلّم','حركة أو رياضة خفيفة']),waste=Number(load('waqti_waste',0)),habitChecks=load('waqti_habitChecks',{});
+$('today').textContent=new Intl.DateTimeFormat('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('hidden',p.id!==b.dataset.tab));}));
+function renderTasks(){let el=$('tasks');if(!tasks.length){el.innerHTML='<div class="empty">لسه مفيش مهام — ابدأ بإضافة أول مهمة 👆</div>'}else{tasks.sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));el.innerHTML='';tasks.forEach(t=>{let d=document.createElement('div');d.className='task'+(t.done?' done':'');let c=document.createElement('input');c.type='checkbox';c.checked=t.done;c.setAttribute('aria-label','تم إنجاز المهمة');c.onchange=()=>{t.done=c.checked;save();renderTasks()};let det=document.createElement('div');det.className='details';let nm=document.createElement('div');nm.className='name';nm.textContent=t.name;let sm=document.createElement('small');sm.textContent=(t.time?t.time+' • ':'')+t.type+' • '+t.duration+' دقيقة';det.append(nm,sm);let pill=document.createElement('span');pill.className='pill';pill.textContent=t.done?'تمت':'مهمة';let del=document.createElement('button');del.className='delete';del.textContent='حذف';del.onclick=()=>{tasks=tasks.filter(x=>x.id!==t.id);save();renderTasks()};d.append(c,det,pill,del);el.append(d)})}
+$('taskCount').textContent=tasks.length;$('doneCount').textContent=tasks.filter(t=>t.done).length;renderPlanStats();}
+$('taskForm').onsubmit=e=>{e.preventDefault();tasks.push({id:Date.now(),name:$('taskName').value.trim(),type:$('taskType').value,time:$('taskTime').value,duration:Math.max(5,Number($('taskDuration').value)||30),done:false});save();renderTasks();e.target.reset();$('taskDuration').value=30;$('taskName').focus()};
+function renderHabits(){let el=$('habitsList');el.innerHTML='';habits.forEach((h,i)=>{let row=document.createElement('div');row.className='habit';let cb=document.createElement('input');cb.type='checkbox';cb.checked=!!habitChecks[h];cb.onchange=()=>{habitChecks[h]=cb.checked;save()};let label=document.createElement('label');label.textContent=h;let del=document.createElement('button');del.className='delete';del.textContent='حذف';del.onclick=()=>{habits.splice(i,1);delete habitChecks[h];save();renderHabits()};row.append(cb,label,del);el.append(row)})}
+$('habitForm').onsubmit=e=>{e.preventDefault();let h=$('habitName').value.trim();if(h&&!habits.includes(h)){habits.push(h);save();renderHabits()}$('habitName').value=''};
+function renderPlanStats(){$('wasteTotal').textContent=waste>=60?Math.floor(waste/60)+' س '+(waste%60)+' د':waste+' د';$('wasteLabel').textContent=waste+' دقيقة'}
+$('addWaste').onclick=()=>{let n=Number($('wasteMinutes').value);if(n>0){waste+=Math.floor(n);save();renderPlanStats();$('wasteMinutes').value=''}};
+$('resetWaste').onclick=()=>{if(confirm('متأكد إنك عايز تصفّر إجمالي الوقت المسجّل؟')){waste=0;save();renderPlanStats()}};
+let focusStart=null,focusElapsed=0,focusInterval=null;
+function fmt(s){s=Math.floor(s);return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,'0')).join(':')}
+$('startFocus').onclick=()=>{if(focusStart)return;focusStart=Date.now();$('focusStatus').textContent='جلسة تركيز شغالة… بالتوفيق!';focusInterval=setInterval(()=>$('focusTimer').textContent=fmt(focusElapsed+(Date.now()-focusStart)/1000),500)};
+$('stopFocus').onclick=()=>{if(!focusStart){$('focusStatus').textContent='مفيش جلسة شغالة حاليًا.';return}focusElapsed+=(Date.now()-focusStart)/1000;focusStart=null;clearInterval(focusInterval);focusInterval=null;$('focusTimer').textContent=fmt(focusElapsed);$('focusStatus').textContent='أحسنت! مدة الجلسة الأخيرة اتسجلت في العداد.';};
+function minutes(s){let [h,m]=s.split(':').map(Number);return h*60+m}
+$('makePlan').onclick=()=>{let start=minutes($('startDay').value),end=minutes($('endDay').value),block=Number($('blockSize').value),br=Number($('breakSize').value);if(end<=start){$('planResult').innerHTML='<div class="notice">وقت النهاية لازم يكون بعد البداية في نفس اليوم.</div>';return}let pending=tasks.filter(t=>!t.done).slice().sort((a,b)=>({ 'موعد':0,'شغل':1,'مذاكرة':2,'شخصي':3,'راحة':4}[a.type]-({'موعد':0,'شغل':1,'مذاكرة':2,'شخصي':3,'راحة':4}[b.type])));let out=[],cur=start;if(!pending.length){$('planResult').innerHTML='<div class="notice">أضف مهامك أولًا عشان أقدر أقترح ترتيبًا ليومك.</div>';return}pending.forEach((t,i)=>{if(t.time){let fixed=minutes(t.time);if(fixed>=cur&&fixed<end)cur=fixed}if(cur>=end)return;let dur=Math.min(t.duration||block,end-cur);out.push({name:t.name,start:cur,end:cur+dur,type:t.type});cur+=dur;if(i<pending.length-1)cur=Math.min(end,cur+br)});let html='<div style="margin-top:14px"><h2>اقتراحك المبدئي</h2>';out.forEach(x=>{let clock=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');html+='<div class="task"><div class="details"><div class="name">'+esc(x.name)+'</div><small>'+clock(x.start)+' – '+clock(x.end)+' • '+esc(x.type)+'</small></div></div>'});if(cur>=end)html+='<p class="muted">وصلنا لحد نهاية اليوم المحدد. انقل بعض المهام ليوم آخر لو لزم.</p>';html+='</div>';$('planResult').innerHTML=html;};
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+renderTasks();renderHabits();renderPlanStats();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+</body></html>

@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "وقتي | نظّم يومك",
+  "short_name": "وقتي",
+  "description": "نظّم مهامك وعاداتك ووقت تركيزك في مكان واحد.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7f4",
+  "theme_color": "#173b35",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
